@@ -187,5 +187,28 @@ class TLinePlusView(ctx : Context) : View(ctx) {
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
         }
+
+        data class Renderer(var view : TLinePlusView) {
+
+            private val animator : Animator = Animator(view)
+            private val tlp : TLinePlus = TLinePlus(0)
+            private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+            fun render(canvas : Canvas) {
+                canvas.drawColor(backColor)
+                tlp.draw(canvas, paint)
+                animator.animate {
+                    tlp.update {
+                        animator.stop()
+                    }
+                }
+            }
+
+            fun handleTap() {
+                tlp.startUpdating {
+                    animator.start()
+                }
+            }
+        }
     }
 }
