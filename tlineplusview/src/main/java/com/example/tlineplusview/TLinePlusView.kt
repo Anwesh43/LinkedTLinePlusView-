@@ -36,15 +36,15 @@ fun Canvas.drawTLinePlus(scale : Float, w : Float, h : Float, paint : Paint) {
     val size : Float = Math.min(w, h) / sizeFactor
     save()
     translate(w / 2, h / 2)
-    rotate(deg * sf.divideScale(2, parts))
+    rotate(deg * 0.5f * sf.divideScale(2, parts))
     for (j in 0..1) {
         save()
         scale(1f, 1f - 2 * j)
-        translate(0f, (h / 2 - paint.strokeWidth) * sf.divideScale(1, parts))
+        translate(0f, (h / 2 - paint.strokeWidth) * (1 - sf.divideScale(1, parts)))
         rotate(deg * sf.divideScale(1, parts))
         for (k in 0..2) {
             save()
-            rotate(90f * k)
+            rotate(gap * k)
             drawLine(0f, 0f, -size * sf.divideScale(0, parts), 0f, paint)
             restore()
         }
